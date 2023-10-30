@@ -1,0 +1,31 @@
+name: Deploy to Azure Blob Storage
+
+on:
+  push:
+    branches:
+      - main # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
+
+    - name: Set up Azure CLI
+      uses: azure/cli@v1
+      with:
+        azcliversion: 2.28.0
+
+    - name: Login to Azure
+      run: az login --service-principal -u ${{ secrets.AZURE_SERVICE_PRINCIPAL_ID }} -p ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+    - name: Select Azure subscription
+      run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Upload files to Azure Blob Storage
+      run: |
+        az storage blob upload-batch --account-name YOUR_STORAGE_ACCOUNT_NAME --account-key YOUR_STORAGE_ACCOUNT_KEY --destination YOUR_CONTAINER_NAME --source path/to/your/local/files --pattern "*.html" # Modify with your actual storage account name, key, container name, and path
+
+    # Add additional steps if you have other types of files or folders to upload
