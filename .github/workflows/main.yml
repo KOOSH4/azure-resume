@@ -28,4 +28,4 @@ jobs:
       run: |
         az storage blob upload-batch --account-name YOUR_STORAGE_ACCOUNT_NAME --account-key YOUR_STORAGE_ACCOUNT_KEY --destination YOUR_CONTAINER_NAME --source path/to/your/local/files --pattern "*.html" # Modify with your actual storage account name, key, container name, and path
 
-    # Add additional steps if you have other types of files or folders to upload1
+    # Add additional steps if you have other types of files or folders to upload
