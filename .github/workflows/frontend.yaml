@@ -2,7 +2,7 @@ name: deploy_static_website
 
 on:
     push:
-        branches: [ main ]
+        branches: [ master ]
 
 jobs:
   build:
